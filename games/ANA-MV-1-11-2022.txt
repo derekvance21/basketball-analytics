@@ -1,0 +1,131 @@
+MV _ Cont 3 Miss
+A 33 Open Rim Make
+MV _ Cont Rim Miss
+A 33 Cont Rim Make
+MV _ Cont 3 Miss (block)
+A 31 Cont 3 Make
+MV _ Cont 3 Miss OR
+MV _ Open Rim Make FT 1/1
+A 12 Open Rim Make
+MV _ Live TO
+A 12 Cont Rim Make
+MV _ Cont Rim Miss (block)
+A 31 Open 3 Miss
+MV _ Cont Rim Miss (block)
+A 33 Cont Rim Make
+MV _ Cont 3 Make
+A 21 Live TO
+MV _ Cont Other Miss
+A 31 Cont Rim Miss (block)
+MV _ Open Other Make
+A 21 Cont Rim Miss
+MV _ Cont Rim FT 0/2
+A 33 Cont Rim Miss (block)
+MV _ Open Rim Make
+A 10 Open 3 Make
+MV _ Live TO
+A 15 Cont Other Miss OR
+A 15 Open Rim Make
+MV _ Live TO
+A 15 Cont 3 Miss OR
+A 31 Cont Rim Make
+MV _ Cont Other Miss (block)
+A 31 Open 3 Make
+(1Q: A 23 MV 10)
+A 31 Cont 3 FT 3/3
+MV _ Open Other Made
+A 12 Open Other Miss
+MV _ Cont 3 Made
+A 12 Live TO
+MV _ Cont Other Miss OR
+MV _ Cont Rim FT 1/2
+A 10 Dead TO
+MV _ Cont 3 Miss
+A 10 Cont Rim Miss
+MV _ Cont Rim Made FT 1/1
+A 34 Cont 3 Miss
+MV _ Cont Rim Miss
+A 15 Cont 3 Miss (block)
+MV _ Open Rim Make
+A 31 Open 3 Miss OR
+A 15 Cont Rim Miss OR
+A 34 Cont 3 Make
+MV _ Live TO
+A 15 Cont 3 Miss OR
+A 21 Cont Rim Miss
+MV _ Cont 3 Miss
+A 33 Live TO
+MV _ Cont Other Miss
+A 10 Cont 3 Miss OR
+A 20 Cont 3 Miss
+MV _ Cont 3 Miss
+A 33 Cont Rim Miss (block)
+MV _ Open Rim Make
+(2Q: A 26 MV 21)
+MV _ Open 3 Make
+A 33 Open Rim Miss
+MV _ Cont Rim Miss
+A 21 Live TO
+MV _ Cont Rim Make
+A 21 Open Other Miss OR
+A 21 Open Rim Make
+MV _ Cont Rim Miss
+A 20 Open 3 Miss
+MV _ Dead TO (A 21 charge)
+A 31 Live TO
+MV _ Cont Rim Miss OR
+MV _ Cont Rim Make
+A 15 Dead TO
+MV _ Cont Rim Make
+A 22 Cont Other Miss
+MV _ Cont Other Make FT 1/1
+A 12 Cont Rim Make
+MV _ Cont Rim Miss OR
+MV _ Cont Other Miss OR
+MV _ Cont Other Miss
+A 15 Cont Rim Miss
+MV _ Cont Rim Miss (block)
+A 12 Dead TO
+MV _ Cont Rim FT 1/2
+A 10 Cont Other Miss
+A 14 Cont Rim Make
+MV _ Cont 3 Make
+(3Q: A 35 MV 39)
+MV _ Dead TO
+A 12 Dead TO
+MV _ Cont 3 Make
+A 14 Live TO
+MV _ Open Rim Make (dunk)
+A 33 Cont Rim Miss
+MV _ Open 3 Make
+A 14 Bonus 2/2
+MV _ Cont Other Miss
+A 33 Bonus 0/1
+MV _ Cont 3 Miss
+A 44 Bonus 0/1
+MV _ Live TO
+A 34 Cont 3 Miss
+MV _ Cont Rim Miss OR
+MV _ Cont Rim Miss OR (block)
+MV _ Cont Rim Make
+A 44 Open 3 Miss OR
+A 33 Cont Rim Miss OR (block)
+A 31 Open 3 Make
+MV _ Live TO
+A 34 Bonus+ 1/2
+MV _ Cont Rim FT 2/2
+A 33 Cont Rim Make
+MV _ Live TO
+A 33 Bonus+ 2/2
+MV _ Cont Rim Make
+A 31 Cont Rim Miss DBR (block)
+A 33 Cont Rim Miss (block)
+MV _ Cont Rim Make
+A 44 Cont Other Miss
+MV _ Open Rim Make
+A 14 Cont 3 Make
+MV _ Live TO
+A 33 Cont Rim Miss OR
+A 33 Cont Rim Miss DBR (block)
+A 31 Open 3 Miss
+(4Q: A 48 MV 57)
