@@ -39,10 +39,10 @@ data PPlay = PPlay Player Play deriving (Show)
 type Parser = Parsec String ()
 
 team :: Parser Team
-team = many1 letter
+team = many1 letter <?> "Team"
 
 number :: Parser Number
-number = count 2 digit
+number = count 2 digit <?> "Number"
 
 player :: Parser Player
 player = Player <$> (team <* space) <*> number
@@ -62,14 +62,17 @@ rebound = OReb <$ string "OR" <|> DReb <$ string "DR"
 foul :: Parser Foul
 foul = string "FT" *> space *> (Foul <$> (read <$> ((:[]) <$> digit) <* char '/') <*> (read <$> ((:[]) <$> digit)))
 
-missFG :: Parser Result
-missFG = Miss Nothing <$> (string "Miss" *> option (Just DReb) (Just <$> (space *> rebound)))
-
 miss :: Parser Result
-miss = missFG <|> (Miss <$> (Just <$> foul) <*> optionMaybe (space *> rebound))
+miss = do
+  string "Miss"
+  mFoul <- optionMaybe (try $ space *> foul)
+  let defaultReb = case mFoul of Nothing -> Just DReb
+                                 Just _  -> Nothing
+  mReb <- option defaultReb (Just <$> (space *> rebound))
+  pure (Miss mFoul mReb)
 
 make :: Parser Result
-make = Make <$> (string "Make" *> optionMaybe foul) <*> optionMaybe (space *> rebound)
+make = Make <$> (string "Make" *> optionMaybe (space *> foul)) <*> optionMaybe (space *> rebound)
 
 result :: Parser Result
 result = try make <|> miss
@@ -101,17 +104,16 @@ type Score = Integer
 playScore :: Play -> Score
 playScore (Shot location result) = 
   case result of 
-    Miss mFoul _ -> 0 + mFoulScore mFoul
-    Make mFoul _ -> 
-      case location of Three -> 3
-                       _ -> 2
-      + mFoulScore mFoul
+    Miss mFoul _ -> mFoulScore mFoul
+    Make mFoul _ -> mFoulScore mFoul + case location of Three -> 3
+                                                        _ -> 2
   where mFoulScore mFoul = case mFoul of Nothing -> 0
-                                         (Just (Foul made _)) -> made 
+                                         Just (Foul made _) -> made 
 playScore (Bonus (Foul made _) _) = made
 playScore _ = 0
 
+testScore :: String -> Either ParseError Score
 testScore input = do
   case parse pplay "" input of
-    Left err -> -1
-    Right (PPlay _ play) -> playScore play
+    Left err -> Left err
+    Right (PPlay _ play) -> Right $ playScore play
