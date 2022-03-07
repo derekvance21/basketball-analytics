@@ -1,11 +1,12 @@
 module Basketball where
 
 import Text.Parsec
+import Data.Either (fromRight)
 
 type Team = String
 type Number = String
 
-data Player = Player Team Number deriving (Show)
+data Player = Player Team Number deriving (Show, Eq)
 
 data Location
   = Rim
@@ -107,18 +108,55 @@ game = pplay `sepEndBy` endOfLine
 type Score = Integer
 
 playScore :: Play -> Score
-playScore (Shot location result) = 
-  case result of 
+playScore (Shot location result) =
+  case result of
     Miss mFoul _ -> mFoulScore mFoul
     Make mFoul _ -> mFoulScore mFoul + case location of Three -> 3
                                                         _ -> 2
   where mFoulScore mFoul = case mFoul of Nothing -> 0
-                                         Just (Foul made _) -> made 
+                                         Just (Foul made _) -> made
 playScore (Bonus (Foul made _) _) = made
 playScore _ = 0
 
-testScore :: String -> Either ParseError Score
-testScore input = do
-  case parse pplay "" input of
-    Left err -> Left err
-    Right (PPlay _ play) -> Right $ playScore play
+gameFinalScore :: Team -> Team -> Game -> (Score, Score)
+gameFinalScore team1 team2 =
+  foldl (\(score1, score2) (PPlay (Player team _) play) ->
+    let score = playScore play in
+      if team == team1 then
+        (score1 + score, score2)
+      else
+        if team == team2 then
+          (score1, score2 + score)
+        else
+          (score1, score2))
+    (0, 0)
+
+type Possession = [PPlay]
+
+getPossessions :: Team -> Possession -> Game -> [Possession]
+getPossessions currTeam currPoss (pplay@(PPlay (Player pteam _) _):restGame) =
+  if pteam == currTeam then getPossessions currTeam (pplay:currPoss) restGame
+  else currPoss:getPossessions pteam [pplay] restGame
+getPossessions _ currPoss [] = [currPoss]
+
+possessions :: Game -> [Possession]
+possessions game@((PPlay (Player team _) _):_) = getPossessions team [] game
+possessions [] = []
+
+testGameFile :: (Show a) => String -> (Game -> a) -> IO ()
+testGameFile filename f = do
+  contents <- readFile filename
+  let g = fromRight [] $ parse game "" contents
+  print $ f g
+
+filterTeamPossessions :: Team -> [Possession] -> [Possession]
+filterTeamPossessions team = filter (\((PPlay (Player t _) _):_) -> t == team)
+
+playerPlays :: Player -> Game -> Game
+playerPlays player = filter (\(PPlay p _) -> p == player)
+
+teamPlays :: Team -> Game -> Game
+teamPlays team = filter (\(PPlay (Player t _) _) -> t == team)
+
+gameScore :: Game -> Score
+gameScore = foldl (\acc (PPlay _ play) -> acc + playScore play) 0

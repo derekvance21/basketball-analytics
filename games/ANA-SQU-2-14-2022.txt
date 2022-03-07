@@ -88,7 +88,7 @@ A 15 Cont 3 Miss OR
 A 10 Open Rim Miss
 S 10 Live
 A 15 Live
-S 33 Cont Rim Make FT 1/1
+S 33 Cont Rim Make FT 1/1 (I think this is where the log overcounts and should be a miss)
 A 21 Open 3 Miss
 S 10 Cont Rim Miss OR
 S 10 Cont 3 Miss
@@ -103,7 +103,7 @@ S 15 Live
 A 14 Dead
 S 24 Cont 3 Make
 A 14 Cont Rim Make
-(3Q A 48 S 43)
+(3Q A 48 S 43 --> Counting the plays here shows 15 scored in 3Q for Squalicum, yet 43 - 29 = 14. 4Q and OT Squalicum scored 27, which is in line with final score of 70. My calc is correct for 1st half)
 A 10 Cont 3 Miss OR
 A 15 Open Rim Make
 S 24 Cont Mid Make
@@ -157,5 +157,5 @@ S 14 Open 3 Miss
 A 10 Open 3 Miss
 S 10 Bonus 0/1
 A 14 Cont Mid Miss
-(Final A 68 S 70)
-(A: 67 poss, S: 65 poss)
+(Final: A 68 S 70)
+(A: 67 poss, S: 65 poss --> regex and my calculator show 65 possessions for both)
