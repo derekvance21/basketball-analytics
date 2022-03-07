@@ -36,6 +36,8 @@ data Play
 -- Might call this GamePlay or GPlay, as in, Play that happens within a game
 data PPlay = PPlay Player Play deriving (Show)
 
+type Game = [PPlay]
+
 type Parser = Parsec String ()
 
 team :: Parser Team
@@ -45,7 +47,7 @@ number :: Parser Number
 number = count 2 digit <?> "Number"
 
 player :: Parser Player
-player = Player <$> (team <* space) <*> number
+player = Player <$> (team <* char ' ') <*> number
 
 location :: Parser Location
 location = choice
@@ -60,31 +62,31 @@ rebound = OReb <$ string "OR" <|> DReb <$ string "DR"
 -- TODO: Right now, if a FT shooter goes 1/2, it's unclear if ended in defensive rebound or make, so would have to explicitly say DR after
 --       I don't like this, so need to change it
 foul :: Parser Foul
-foul = string "FT" *> space *> (Foul <$> (read <$> ((:[]) <$> digit) <* char '/') <*> (read <$> ((:[]) <$> digit)))
+foul = string "FT" *> char ' ' *> (Foul <$> (read <$> ((:[]) <$> digit) <* char '/') <*> (read <$> ((:[]) <$> digit)))
 
 miss :: Parser Result
 miss = do
   string "Miss"
-  mFoul <- optionMaybe (try $ space *> foul)
+  mFoul <- optionMaybe (try $ char ' ' *> foul)
   let defaultReb = case mFoul of Nothing -> Just DReb
                                  Just _  -> Nothing
-  mReb <- option defaultReb (Just <$> (space *> rebound))
+  mReb <- option defaultReb (Just <$> (char ' ' *> rebound))
   pure (Miss mFoul mReb)
 
 make :: Parser Result
-make = Make <$> (string "Make" *> optionMaybe (space *> foul)) <*> optionMaybe (space *> rebound)
+make = Make <$> (try (string "Make") *> optionMaybe (char ' ' *> foul)) <*> optionMaybe (char ' ' *> rebound)
 
 result :: Parser Result
-result = try make <|> miss
+result = make <|> miss
 
 shot :: Parser Play
-shot = Shot <$> (location <* space) <*> result
+shot = Shot <$> (location <* char ' ') <*> result
 
 turnover :: Parser Play
 turnover = TO <$ string "TO"
 
 bonus :: Parser Play
-bonus = Bonus <$> (string "Bonus" *> space *> foul) <*> optionMaybe (space *> rebound)
+bonus = Bonus <$> (string "Bonus" *> char ' ' *> foul) <*> optionMaybe (char ' ' *> rebound)
 
 play :: Parser Play
 play = choice
@@ -94,10 +96,13 @@ play = choice
   ]
 
 pplay :: Parser PPlay
-pplay = PPlay <$> player <*> (space *> play) <* eof
+pplay = PPlay <$> player <*> (char ' ' *> play)
 
 comment :: Parser String
 comment = char '(' >> manyTill anyChar (try (char ')'))
+
+game :: Parser Game
+game = pplay `sepEndBy` endOfLine
 
 type Score = Integer
 
