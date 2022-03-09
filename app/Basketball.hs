@@ -24,20 +24,23 @@ data Rebound
   | DReb
   deriving (Show)
 
--- should a `Foul` have the context of a `Shot`, or should a `Play` be able to be just a `Foul`. I'm going with the former for now
+-- should a `Foul` have the context of a `Shot`, or should a `Action` be able to be just a `Foul`. I'm going with the former for now
 -- Made/Attempted
 data Foul = Foul Integer Integer deriving (Show)
 
-data Play
+data Action
   = TO
   | Shot Location Result
   | Bonus Foul (Maybe Rebound)
   deriving (Show)
 
--- Might call this GamePlay or GPlay, as in, Play that happens within a game
-data PPlay = PPlay Player Play deriving (Show)
+data Play = Play Player Action deriving (Show)
 
-type Game = [PPlay]
+type Game = [Play]
+
+type Possession = [Play]
+
+type Score = Integer
 
 type Parser = Parsec String ()
 
@@ -80,83 +83,75 @@ make = Make <$> (try (string "Make") *> optionMaybe (char ' ' *> foul)) <*> opti
 result :: Parser Result
 result = make <|> miss
 
-shot :: Parser Play
+shot :: Parser Action
 shot = Shot <$> (location <* char ' ') <*> result
 
-turnover :: Parser Play
+turnover :: Parser Action
 turnover = TO <$ string "TO"
 
-bonus :: Parser Play
+bonus :: Parser Action
 bonus = Bonus <$> (string "Bonus" *> char ' ' *> foul) <*> optionMaybe (char ' ' *> rebound)
 
-play :: Parser Play
-play = choice
+action :: Parser Action
+action = choice
   [ try shot
   , turnover
   , bonus
   ]
 
-pplay :: Parser PPlay
-pplay = PPlay <$> player <*> (char ' ' *> play)
+play :: Parser Play
+play = Play <$> player <*> (char ' ' *> action)
 
 comment :: Parser String
 comment = char '(' >> manyTill anyChar (try (char ')'))
 
 game :: Parser Game
-game = pplay `sepEndBy` endOfLine
+game = play `sepEndBy` endOfLine
 
-type Score = Integer
+getAction :: Play -> Action
+getAction (Play _ action) = action
 
-playScore :: Play -> Score
-playScore (Shot location result) =
+getPlayer :: Play -> Player
+getPlayer (Play player _) = player
+
+getTeam :: Play -> Team
+getTeam (Play (Player team _) _) = team
+
+actionScore :: Action -> Score
+actionScore (Shot location result) =
   case result of
     Miss mFoul _ -> mFoulScore mFoul
     Make mFoul _ -> mFoulScore mFoul + case location of Three -> 3
                                                         _ -> 2
   where mFoulScore mFoul = case mFoul of Nothing -> 0
                                          Just (Foul made _) -> made
-playScore (Bonus (Foul made _) _) = made
-playScore _ = 0
+actionScore (Bonus (Foul made _) _) = made
+actionScore _ = 0
 
-gameFinalScore :: Team -> Team -> Game -> (Score, Score)
-gameFinalScore team1 team2 =
-  foldl (\(score1, score2) (PPlay (Player team _) play) ->
-    let score = playScore play in
-      if team == team1 then
-        (score1 + score, score2)
-      else
-        if team == team2 then
-          (score1, score2 + score)
-        else
-          (score1, score2))
-    (0, 0)
-
-type Possession = [PPlay]
-
-getPossessions :: Team -> Possession -> Game -> [Possession]
-getPossessions currTeam currPoss (pplay@(PPlay (Player pteam _) _):restGame) =
-  if pteam == currTeam then getPossessions currTeam (pplay:currPoss) restGame
-  else currPoss:getPossessions pteam [pplay] restGame
-getPossessions _ currPoss [] = [currPoss]
+playScore :: Play -> Score
+playScore = actionScore . getAction
 
 possessions :: Game -> [Possession]
-possessions game@((PPlay (Player team _) _):_) = getPossessions team [] game
+possessions game@(first : _) = auxFunc [] (getTeam first) game
+  where
+    auxFunc possession team game = case game of -- TODO: make this a stateful computation or something to be more Haskellesque
+      [] -> [possession]
+      play : rest ->
+        if team == getTeam play
+          then auxFunc (play : possession) team rest
+          else possession : auxFunc [play] (getTeam play) rest
 possessions [] = []
 
 testGameFile :: (Show a) => String -> (Game -> a) -> IO ()
 testGameFile filename f = do
   contents <- readFile filename
-  let g = fromRight [] $ parse game "" contents
-  print $ f g
-
-filterTeamPossessions :: Team -> [Possession] -> [Possession]
-filterTeamPossessions team = filter (\((PPlay (Player t _) _):_) -> t == team)
-
-playerPlays :: Player -> Game -> Game
-playerPlays player = filter (\(PPlay p _) -> p == player)
-
-teamPlays :: Team -> Game -> Game
-teamPlays team = filter (\(PPlay (Player t _) _) -> t == team)
+  print . f $ fromRight [] (parse game "" contents)
 
 gameScore :: Game -> Score
-gameScore = foldl (\acc (PPlay _ play) -> acc + playScore play) 0
+gameScore = foldl (\acc play -> acc + playScore play) 0
+
+teamGameScores :: [Team] -> Game -> [Score]
+teamGameScores teams = map gameScore . traverse (\team -> gameFilter [\play -> getTeam play == team]) teams
+
+gameFilter :: [Play -> Bool] -> Game -> Game
+gameFilter filters = filter (and . sequenceA filters)
