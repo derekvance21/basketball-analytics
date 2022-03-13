@@ -15,6 +15,9 @@
   - [ ] FT%
 - [ ] Game files have teams in header and are used in parse
 - [ ] Game files have (optional?) substitution information, and plays have list of players in the game
+- [ ] Use a lexer to ignore surrounding whitespace
+- [ ] Allow comments anywhere in the game logs
+- [ ] Optimize parser, refactoring to avoid `try` function
 
 # Goals
 - **TO%**
