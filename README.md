@@ -1,17 +1,29 @@
 # Steps
-- [ ] Have datatype to represent a game
-- [ ] Parse game file into datatype
-- [ ] Define operations on that datatype
+- [X] Have datatype to represent a game
+- [X] Parse game file into datatype
+- [ ] Define all relevant queries on that datatype
+  - [X] PPP (points per possession)
+  - [X] eFG%
+  - [X] TO%
+  - [X] OReb%
+  - [X] FTA/FGA
+  - [ ] Shots at rim %
+  - [ ] Rim FG%
+  - [ ] Shots from three %
+  - [ ] 3FG%
+  - [ ] DReb%
+  - [ ] FT%
+- [ ] Game files have teams in header and are used in parse
+- [ ] Game files have (optional?) substitution information, and plays have list of players in the game
 
 # Goals
 - **TO%**
-- Shots at rim %
-- Shots from 3pt %
 - **eFG%**
 - **Points per possession (PPP)** 
-- And then keep track of players individually, you can aggregate later
 - **OReb%**
 - **FTRate**
+- Shots at rim %
+- Shots from three %
 - Can track these team metrics with specific lineups, opposing teams, etc.
 ![New Mexico State Basketball Analytics Dashboard](images/nms-bball-dashboard.jpg)
 
@@ -20,7 +32,7 @@
   - **Shooting** *(eFG%)*
   - **Turnovers** *(TO%)*
   - **Rebounding** *(OReb%)*
-  - **Free Throws** *(FTM/FGA)*
+  - **Free Throws** *(FTA/FGA)*
 - Could say there are eight, because you multiply those by two for offense/defense
 - These inherently cover the entire game of basketball, which is what my logging does. They are the *possession enders*
   - Another possession ender might be the clock running out
