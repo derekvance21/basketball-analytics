@@ -1,161 +1,154 @@
-S 10 Cont 3 Make
-A 34 Open 3 Make
-S 11 Dead
-A 15 Cont Rim Miss
-S 10 Dead
-A 14 Cont Rim Miss OR
-A 33 Cont Rim FT 0/2
-S 11 Open 3 Miss
-A 15 Open 3 Make
-S 14 Live
-A 34 Cont Rim Miss OR
-A 34 Cont Mid Make
-S 23 Cont 3 Miss
-A 33 Cont Rim FT 1/2
-S 13 Live
-A 10 Open 3 Make
-S 10 Cont Rim FT 1/2
-A 10 Open 3 Miss
-S 23 Open Mid Miss
-A 15 Cont Rim Miss OR
-A 33 Cont Rim Make
-S 13 Cont Rim Miss
-A 15 Open 3 Make
-S 13 Dead
-A 21 Dead
-S 24 Open 3 Make
-A 21 Cont 3 Make
-S 23 Cont 3 Miss
-A 15 Open 3 Make
-S 10 Cont Mid Make
-A 12 Cont Mid Miss
-(1Q A 23 S 9)
-A 15 Live
-S 24 Open 3 Miss
-(A 30 second Timeout)
-A 21 Cont Rim Miss
-S 10 Cont Rim Make
-A 12 Dead
-S 10 Cont 3 Make
-A 34 Cont Rim Miss OR
-A 14 Open 3 Miss
-S 13 Live
-A 10 Cont 3 Miss
-S 10 Cont Rim Make
-A 14 Open Rim Make
-S 13 Cont 3 Miss
-A 14 Cont Rim Make
-S 23 Cont Rim Make FT 0/1
-A 33 Cont Rim Make
-S 23 Cont Rim FT 1/2
-A 33 Cont Rim Make FT 1/1
-S 24 Cont 3 Make FT 0/1
-A 33 Cont Rim Miss
-S 14 Dead
-A 33 Bonus 0/1
-S 24 Cont 3 Make
-A 33 Open Rim Miss
-S 15 Cont 3 Make
-A 10 Cont 3 Miss
-S 23 Cont Rim FT 1/2
-A 15 Cont Rim Miss
-S 10 Cont Rim Miss
-A 34 Open Rim Make
-S 10 Cont Rim Miss
-A 15 Cont 3 Miss
-S 14 Cont Mid Miss
-A 34 Cont Rim Make
-S 23 Live
-A 15 Bonus+ 1/2
-(2Q A 37 S 29)
-S 10 Cont 3 Make
-A 15 Live
-S 10 Cont 3 Miss DBR
-S 23 Cont Mid Miss
-A 33 Cont Rim Miss
-S 11 Dead
-A 34 Open Rim Miss
-S 11 Open 3 Miss OR
-S 11 Live
-A 14 Open Rim Miss
-S 10 Cont Mid Miss
-A 15 Cont 3 Make
-S 54 Dead
-A 10 Cont Rim FT 2/2
-S 15 Cont 3 Miss OR
-S 33 Cont Rim Make
-A 15 Cont 3 Miss OR
-A 10 Open Rim Miss
-S 10 Live
-A 15 Live
-S 33 Cont Rim Make FT 1/1 (I think this is where the log overcounts and should be a miss)
-A 21 Open 3 Miss
-S 10 Cont Rim Miss OR
-S 10 Cont 3 Miss
-A 10 Cont 3 Miss
-S 13 Cont Rim Make
-A 21 Cont Rim Make
-S 10 Cont Rim Make
-A 21 Live
-S 15 Open Rim Miss
-A 14 Cont Rim Make
-S 15 Live
-A 14 Dead
-S 24 Cont 3 Make
-A 14 Cont Rim Make
-(3Q A 48 S 43 --> Counting the plays here shows 15 scored in 3Q for Squalicum, yet 43 - 29 = 14. 4Q and OT Squalicum scored 27, which is in line with final score of 70. My calc is correct for 1st half)
-A 10 Cont 3 Miss OR
-A 15 Open Rim Make
-S 24 Cont Mid Make
-A 15 Cont Rim Miss
-S 24 Cont 3 Miss
-(A 30 second Timeout) ("It's their 3rd timeout of the game)
-A 33 Cont Rim Miss
-(Hayes needs better left hand finishing)
-S 14 Live
-A 33 Cont Rim Miss (block) DBR
-A 14 Cont Rim Make
-S 24 Cont 3 Make
-A 33 Dead
-S 54 Open Rim Make
-A 15 Open Rim Make
-(A Full Timeout) ("Their fourth timeout of the game")
-S 23 Cont 3 Miss
-A 33 Cont Rim Make
-S 54 Open Rim Make
-(A one-pass-away off ball players like to rotate towards/above the ball, and it looks like they're aiming for their man to go above the ball to not be in the way of the drive; however, they just bring their guy into the ball, and their driving angle is shit, because they're moving at a slight angle away from the hoop, and they're not even using the DHO as a screen because of how high they go. A 14 does this right here)
-A 33 Cont Rim Miss (Hayes misses another lefty layup)
-S 10 Open 3 Make
-A 33 Cont 3 Miss
-S 24 Cont Rim Make
-A 10 Cont 3 Make
-S 14 Cont 3 Miss
-A 14 Cont Rim Miss OR
-A 15 Cont Rim Miss
-S 24 Cont 3 Make
-A 33 Cont Rim Make FT 0/1
-S 10 Live
-A 10 Cont 3 Make
-S 24 Cont 3 Miss OR
-(S Full Timeout)
-S 10 Cont 3 Make
-A 15 Live
-S 10 Bonus 1/2
-A 34 Live
-(OT A 64 S 64)
-S 54 Cont Rim Miss (block) DBR
-S 14 Cont 3 Miss OR
-S 10 Cont Mid Miss
-A 12 Cont Rim Make
-S 24 Open 3 Make
-A 15 Cont Rim Make
-S 14 Cont Rim Miss DBR
-(A Full Timeout) ("One timeout remaining")
-S 10 Open 3 Make
-A 15 Cont Rim Miss
-S 14 Open 3 Miss
-A 10 Open 3 Miss
-S 10 Bonus 0/1
-A 14 Cont Mid Miss
-(Final: A 68 S 70)
-(A: 67 poss, S: 65 poss --> regex and my calculator show 65 possessions for both)
+S 10 Three Make
+A 34 Three Make
+S 11 TO
+A 15 Rim Miss
+S 10 TO
+A 14 Rim Miss OR
+A 33 Rim Miss FT 0/2 DR
+S 11 Three Miss
+A 15 Three Make
+S 14 TO
+A 34 Rim Miss OR
+A 34 Mid Make
+S 23 Three Miss
+A 33 Rim Miss FT 1/2
+S 13 TO
+A 10 Three Make
+S 10 Rim Miss FT 1/2
+A 10 Three Miss
+S 23 Mid Miss
+A 15 Rim Miss OR
+A 33 Rim Make
+S 13 Rim Miss
+A 15 Three Make
+S 13 TO
+A 21 TO
+S 24 Three Make
+A 21 Three Make
+S 23 Three Miss
+A 15 Three Make
+S 10 Mid Make
+A 12 Mid Miss
+1Q (A 23 S 9)
+A 15 TO
+S 24 Three Miss
+A 21 Rim Miss
+S 10 Rim Make
+A 12 TO
+S 10 Three Make
+A 34 Rim Miss OR
+A 14 Three Miss
+S 13 TO
+A 10 Three Miss
+S 10 Rim Make
+A 14 Rim Make
+S 13 Three Miss
+A 14 Rim Make
+S 23 Rim Make FT 0/1 DR
+A 33 Rim Make
+S 23 Rim Miss FT 1/2
+A 33 Rim Make FT 1/1
+S 24 Three Make FT 0/1 DR
+A 33 Rim Miss
+S 14 TO
+A 33 Bonus FT 0/1 DR
+S 24 Three Make
+A 33 Rim Miss
+S 15 Three Make
+A 10 Three Miss
+S 23 Rim Miss FT 1/2
+A 15 Rim Miss
+S 10 Rim Miss
+A 34 Rim Make
+S 10 Rim Miss
+A 15 Three Miss
+S 14 Mid Miss
+A 34 Rim Make
+S 23 TO
+A 15 Bonus FT 1/2
+2Q (A 37 S 29)
+S 10 Three Make
+A 15 TO
+S 10 Three Miss OR
+S 23 Mid Miss
+A 33 Rim Miss
+S 11 TO
+A 34 Rim Miss
+S 11 Three Miss OR
+S 11 TO
+A 14 Rim Miss
+S 10 Mid Miss
+A 15 Three Make
+S 54 TO
+A 10 Rim Miss FT 2/2
+S 15 Three Miss OR
+S 33 Rim Make
+A 15 Three Miss OR
+A 10 Rim Miss
+S 10 TO
+A 15 TO
+S 33 Rim Make FT 0/1
+A 21 Three Miss
+S 10 Rim Miss OR
+S 10 Three Miss
+A 10 Three Miss
+S 13 Rim Make
+A 21 Rim Make
+S 10 Rim Make
+A 21 TO
+S 15 Rim Miss
+A 14 Rim Make
+S 15 TO
+A 14 TO
+S 24 Three Make
+A 14 Rim Make
+3Q (A 48 S 43)
+A 10 Three Miss OR
+A 15 Rim Make
+S 24 Mid Make
+A 15 Rim Miss
+S 24 Three Miss
+A 33 Rim Miss
+S 14 TO
+A 33 Rim Miss OR
+A 14 Rim Make
+S 24 Three Make
+A 33 TO
+S 54 Rim Make
+A 15 Rim Make
+S 23 Three Miss
+A 33 Rim Make
+S 54 Rim Make
+A 33 Rim Miss
+S 10 Three Make
+A 33 Three Miss
+S 24 Rim Make
+A 10 Three Make
+S 14 Three Miss
+A 14 Rim Miss OR
+A 15 Rim Miss
+S 24 Three Make
+A 33 Rim Make FT 0/1 DR
+S 10 TO
+A 10 Three Make
+S 24 Three Miss OR
+S 10 Three Make
+A 15 TO
+S 10 Bonus FT 1/2
+A 34 TO
+4Q (A 64 S 64)
+S 54 Rim Miss OR
+S 14 Three Miss OR
+S 10 Mid Miss
+A 12 Rim Make
+S 24 Three Make
+A 15 Rim Make
+S 14 Rim Miss OR
+S 10 Three Make
+A 15 Rim Miss
+S 14 Three Miss
+A 10 Three Miss
+S 10 Bonus FT 0/1 DR
+A 14 Mid Miss
+OT (A 68 S 70)
+(A: 67 poss, S: 65 poss)
