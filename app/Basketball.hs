@@ -139,6 +139,8 @@ possessions _ = []
 playsToPossessions :: [Play] -> Game
 playsToPossessions = possessions . map PlayP
 
+-- header = count 2 team
+
 -- TODO: use a lexer to ignore spaces before each token. The file `~/haskell/sExpr/app/SExpr.hs` has an example of this
 
 -- TODO: Parse directly into [Possession], and then type Game = [Possession], and there's an easy way to go from Game -> [Play] with concat or something
@@ -173,10 +175,10 @@ playsScore :: [Play] -> Score
 playsScore = foldl (\acc play -> acc + playScore play) 0
 
 teamGameScores :: [Team] -> [Play] -> [Score]
-teamGameScores teams = map playsScore . traverse (\team -> filter (\play -> (getTeam . getPlayer $ play) == team)) teams
+teamGameScores = traverse (\team -> playsScore . filter (\play -> (getTeam . getPlayer $ play) == team))
 
 playerGameScores :: [Player] -> [Play] -> [Score]
-playerGameScores players = map playsScore . traverse (\player -> filter ((==player) . getPlayer)) players
+playerGameScores = traverse (\player -> playsScore . filter ((==player) . getPlayer))
 
 teamPossessions :: Team -> Game -> Game
 teamPossessions team = filter ((==team) . getTeam . getPlayer . head)
@@ -220,6 +222,14 @@ isTwo (Shot Mid _) = True
 isTwo (Shot Rim _) = True
 isTwo _ = False
 
+isRim :: Action -> Bool
+isRim (Shot Rim _) = True
+isRim _ = False
+
+isMid :: Action -> Bool
+isMid (Shot Mid _) = True
+isMid _ = False
+
 isReboundable :: Action -> Bool
 isReboundable (Shot _ (Miss Nothing _)) = True
 isReboundable _ = False
@@ -251,6 +261,12 @@ ftRate plays =
   let fga = length . filter (isFGAttempt . getAction) $ plays
       fta = foldl (\acc p -> acc + (getFTA . getAction $ p)) 0 plays
   in fromIntegral fta / fromIntegral fga
+
+statRatio :: (Play -> Bool) -> (Play -> Bool) -> [Play] -> Float
+statRatio filterFn1 filterFn2 plays =
+  let den = length . filter filterFn1 $ plays
+      num = length . filter (and . sequence [filterFn1, filterFn2]) $ plays
+  in fromIntegral num / fromIntegral den
 
 turnoverRate :: Game -> Float
 turnoverRate g = (fromIntegral . length . filter isTOPossession $ g) / (fromIntegral . length $ g)
