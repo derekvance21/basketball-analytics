@@ -7,13 +7,13 @@
   - [X] TO%
   - [X] OReb%
   - [X] FTA/FGA
-  - [ ] Shots at rim %
-  - [ ] Rim FG%
-  - [ ] Shots from three %
-  - [ ] 3FG%
+  - [X] Shots at rim %
+  - [X] Rim FG%
+  - [X] Shots from three %
+  - [X] 3FG%
   - [ ] DReb%
   - [ ] FT%
-- [ ] Game files have teams in header and are used in parse
+- [X] Game files have teams in header and are used in parse
 - [ ] Game files have (optional?) substitution information, and thus plays have list of players in the game
 - [ ] Use a lexer to ignore surrounding (or likely just trailing) whitespace
 - [ ] Allow comments anywhere in the game logs
